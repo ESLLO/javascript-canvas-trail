@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS canvas trail</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <canvas id="main"></canvas>
+  </div>
+  <div class="options">
+    <div class="option">
+      <p>Dot</p>
+      <input id="dot" type="checkbox" />
+    </div>
+    <div class="option">
+      <p>Line</p>
+      <input id="line" type="checkbox" />
+    </div>
+    <div class="option">
+      <p>Fill</p>
+      <input id="fill" type="checkbox" />
+    </div>
+    <div class="option">
+      <p>Max Dot</p>
+      <input id="max" type="number" step="5" />
+    </div>
+    <div class="option">
+      <p>Dot / Sec</p>
+      <input id="pps" type="number" step="5" />
+    </div>
+  </div>
+  <script src="loop.js"></script>
+  <script src="trail.js"></script>
+  <script>
+    const trail = new Trail();
+    trail.bindLoop(loop);
+
+    const b = (e) => document.getElementById(e);
+    ['dot', 'line', 'fill'].forEach(o => (b(o).checked = trail[o]) || (b(o).onchange = e => trail[o] = e.target.checked));
+    ['max', 'pps'].forEach(o => (b(o).value = trail[o]) || (b(o).onchange = b(o).onkeyup = e => trail[o] = e.target.value || 0));
+
+    const wrap = document.querySelector('.wrap');
+    function applySize() {
+      let cs = window.getComputedStyle(wrap);
+      cvs.width = parseInt(cs.width);
+      cvs.height = parseInt(cs.height);
+    }
+    window.onresize = () => applySize();
+    applySize();
+  </script>
+</body>
+
+</html>
