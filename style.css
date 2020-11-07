@@ -13,6 +13,7 @@
   height: 100%;
   background: #232323;
   overflow: hidden;
+  cursor: none;
 }
 
 .options {
@@ -25,6 +26,7 @@
   flex-direction: column;
   background: #444;
   border: 1px solid #111;
+  cursor: default;
 }
 
 .option {
